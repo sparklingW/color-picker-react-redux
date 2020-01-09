@@ -5,15 +5,7 @@ import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 import styled from "styled-components";
 
-const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray, setColor}) => {
-
-  // React.useEffect(() => {
-    // let result = hexToRgb(currentColor);
-    // let resThirdEl = result[2] === undefined ? 0 : result[2];
-    // let rgb = result[0] + ',' + result[1] + ',' + resThirdEl;
-    // console.log(rgbToHex(result[0], result[1], resThirdEl));
-  // });
-
+const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray, setColor, setR_G_B}) => {
   return (
     <Wrapper>
       <Container>
@@ -22,10 +14,18 @@ const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray, setColor}) 
         </Hex>
         <RightSide>
           <ColorB>
-            <RgbBlock background={currentRgb}  />
+            <RgbBlock
+              background={currentRgb}
+              setR_G_B={setR_G_B}
+            />
           </ColorB>
           <OpenContext>
-            <ColorBlock colorsArray={colorsArray} setRgb={setRgb} setColor={setColor} />
+            <ColorBlock
+              colorsArray={colorsArray}
+              setRgb={setRgb}
+              setColor={setColor}
+              setR_G_B={setR_G_B}
+            />
           </OpenContext>
         </RightSide>
       </Container>
@@ -37,11 +37,15 @@ const mapStateToProps = (state) => ({
   currentColor: state.currentColor,
   currentRgb: state.currentRgb,
   colorsArray: state.colorsArray,
+  r: state.r,
+  g: state.g,
+  b: state.b,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setRgb: (payload) => dispatch(actions.setRgb(payload)),
   setColor: (payload) => dispatch(actions.setColor(payload)),
+  setR_G_B:(payload) => dispatch(actions.setR_G_B(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorPicker);

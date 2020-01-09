@@ -9,3 +9,8 @@ export const setRgb = (payload) => ({
   type: consts.PICK_RGB,
   payload,
 });
+
+export const setR_G_B = (payload) => ({
+  type: consts.SET_R_G_B,
+  payload,
+});

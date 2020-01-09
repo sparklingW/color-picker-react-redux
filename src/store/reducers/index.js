@@ -19,7 +19,10 @@ const initialState = {
     id: 4,
     name: "BLUE",
     color: "0,0,255"
-  }]
+  }],
+  r: '255',
+  g: '0',
+  b: '0',
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -33,6 +36,13 @@ const mainReducer = (state = initialState, action) => {
       return {
         ...state,
         currentRgb: action.payload,
+      };
+    case consts.SET_R_G_B:
+      return {
+        ...state,
+        r: action.payload.r,
+        g: action.payload.g,
+        b: action.payload.b,
       };
     default:
       return {

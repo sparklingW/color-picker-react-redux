@@ -37,7 +37,7 @@ class ColorBlock extends React.Component {
   };
 
   choseColor = (color) => {
-    const { setRgb, setColor } = this.props;
+    const { setRgb, setColor, setR_G_B }  = this.props;
     this.setState({
       chosenColor: color,
       isOpenDropDown: false,
@@ -45,6 +45,7 @@ class ColorBlock extends React.Component {
       setRgb(color);
       const splited = color.split(",");
       const res = conv.rgbToHex(Number(splited[0]), Number(splited[1]), Number(splited[2]));
+      setR_G_B({r: Number(splited[0]), g: Number(splited[1]), b: Number(splited[2])});
       setColor(res);
     });
   };
