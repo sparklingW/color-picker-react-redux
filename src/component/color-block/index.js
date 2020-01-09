@@ -6,6 +6,7 @@ class ColorBlock extends React.Component {
 
   state = {
     isOpenDropDown: true,
+    chosenColor: "rgb(255,0,0)",
   };
 
   handleOpen = () => {
@@ -14,8 +15,15 @@ class ColorBlock extends React.Component {
     })
   };
 
+  choseColor = (color) => {
+    const { setRgb } = this.props;
+    this.setState({
+      chosenColor: color
+    }, () => setRgb(color));
+  };
+
   render() {
-    const { isOpenDropDown } = this.state;
+    const { isOpenDropDown, chosenColor } = this.state;
     const { colorsArray } = this.props;
     return(
       <Container>
@@ -29,6 +37,8 @@ class ColorBlock extends React.Component {
         {isOpenDropDown &&
           <DropDown
             colorsArray={colorsArray}
+            choseColor={this.choseColor}
+            chosenColor={chosenColor}
           />
         }
       </Container>

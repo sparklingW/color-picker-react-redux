@@ -2,7 +2,7 @@ import * as consts from "../consts/index";
 
 const initialState = {
   currentColor: "#FF00",
-  currentRgb: "",
+  currentRgb: "rgb(255,0,0)",
   colorsArray: [{
     id: 1,
     name: "RED",

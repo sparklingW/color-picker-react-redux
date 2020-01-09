@@ -10,9 +10,8 @@ const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray}) => {
   React.useEffect(() => {
     let result = hexToRgb(currentColor);
     let resThirdEl = result[2] === undefined ? 0 : result[2];
-    let rgb = result[0] + ',' + result[1] + ',' + resThirdEl;
-    setRgb(`rgb(${rgb})`);
-    console.log(rgbToHex(result[0], result[1], resThirdEl));
+    // let rgb = result[0] + ',' + result[1] + ',' + resThirdEl;
+    // console.log(rgbToHex(result[0], result[1], resThirdEl));
   });
 
   const hexToRgb = hex =>
@@ -32,10 +31,10 @@ const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray}) => {
         </Hex>
         <RightSide>
           <ColorB>
-            <RgbBlock background={currentRgb} />
+            <RgbBlock background={currentRgb}  />
           </ColorB>
           <OpenContext>
-            <ColorBlock colorsArray={colorsArray} />
+            <ColorBlock colorsArray={colorsArray} setRgb={setRgb} />
           </OpenContext>
         </RightSide>
       </Container>

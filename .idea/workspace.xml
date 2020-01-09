@@ -6,8 +6,6 @@
       <change beforePath="$PROJECT_DIR$/src/component/color-block/drop-down.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/color-block/drop-down.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/color-block/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/color-block/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/component/color-picker/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/component/color-picker/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/play-button.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/store/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/reducers/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +87,8 @@
       <option name="presentableId" value="Default" />
       <updated>1578568447904</updated>
       <workItem from="1578568449595" duration="659000" />
-      <workItem from="1578569123121" duration="9583000" />
+      <workItem from="1578569123121" duration="9669000" />
+      <workItem from="1578585351445" duration="2258000" />
     </task>
     <servers />
   </component>
