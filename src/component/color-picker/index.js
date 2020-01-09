@@ -25,19 +25,21 @@ const ColorPicker = ({currentColor, setRgb, currentRgb, colorsArray}) => {
     .map(x => x.toString(16).padStart(2, '0')).join('');
 
   return (
-    <Container>
-      <Hex>
-        {currentColor.toUpperCase()}
-      </Hex>
-      <RightSide>
-        <ColorB>
-          <RgbBlock background={currentRgb} />
-        </ColorB>
-        <OpenContext>
-          <ColorBlock colorsArray={colorsArray} />
-        </OpenContext>
-      </RightSide>
-    </Container>
+    <Wrapper>
+      <Container>
+        <Hex>
+          {currentColor.toUpperCase()}
+        </Hex>
+        <RightSide>
+          <ColorB>
+            <RgbBlock background={currentRgb} />
+          </ColorB>
+          <OpenContext>
+            <ColorBlock colorsArray={colorsArray} />
+          </OpenContext>
+        </RightSide>
+      </Container>
+    </Wrapper>
   )
 };
 
@@ -53,6 +55,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(ColorPicker);
 
+const Wrapper = styled.div`
+  background-color: rgba(0,0,0,0.17);
+  width: 500px;
+  height: 400px;
+  padding: 12px;
+`;
+
 const Container = styled.div`
   margin: 2% 10%;
   width: 300px;
@@ -62,6 +71,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
 `;
 
 const Hex = styled.div`

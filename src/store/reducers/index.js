@@ -17,7 +17,7 @@ const initialState = {
     color: "rgb(0,255,0)"
   }, {
     id: 4,
-    name: "RED",
+    name: "BLUE",
     color: "rgb(0,0,255)"
   }]
 };

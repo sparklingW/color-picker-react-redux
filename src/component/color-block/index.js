@@ -5,7 +5,13 @@ import styled from "styled-components";
 class ColorBlock extends React.Component {
 
   state = {
-    isOpenDropDown: false,
+    isOpenDropDown: true,
+  };
+
+  handleOpen = () => {
+    this.setState({
+      isOpenDropDown: !this.state.isOpenDropDown
+    })
   };
 
   render() {
@@ -18,13 +24,13 @@ class ColorBlock extends React.Component {
           alt="arrow_down"
           width="42"
           height="42"
+          onClick={this.handleOpen}
         />
-        { isOpenDropDown && colorsArray.map(el => (
+        {isOpenDropDown &&
           <DropDown
-            key={el.id}
-            el={el}
+            colorsArray={colorsArray}
           />
-        ))}
+        }
       </Container>
     )
   }
@@ -33,6 +39,7 @@ class ColorBlock extends React.Component {
 export default ColorBlock;
 
 const Container = styled.div`
+  position: relative;
   width: 60px;
   height: 50px;
   display: flex;
