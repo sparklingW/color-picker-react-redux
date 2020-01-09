@@ -44,7 +44,7 @@ const Block = styled.div`
   width: 25px;
   height: 25px;
   margin: 15px 15px;
-  background: ${props => props.background};
+  background: ${props => props.background && `rgb(${props.background})`};
 `;
 
 const Element = styled.div`

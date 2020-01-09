@@ -1,12 +1,13 @@
 import React from "react";
 import DropDown from "./drop-down";
 import styled from "styled-components";
+import * as conv from "../../convertsFunctions/index";
 
 class ColorBlock extends React.Component {
 
   state = {
-    isOpenDropDown: true,
-    chosenColor: "rgb(255,0,0)",
+    isOpenDropDown: false,
+    chosenColor: "255,0,0",
   };
 
   handleOpen = () => {
@@ -16,10 +17,15 @@ class ColorBlock extends React.Component {
   };
 
   choseColor = (color) => {
-    const { setRgb } = this.props;
+    const { setRgb, setColor } = this.props;
     this.setState({
       chosenColor: color
-    }, () => setRgb(color));
+    }, () => {
+      setRgb(color);
+      const splited = color.split(",");
+      const res = conv.rgbToHex(Number(splited[0]), Number(splited[1]), Number(splited[2]));
+      setColor(res);
+    });
   };
 
   render() {

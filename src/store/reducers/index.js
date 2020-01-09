@@ -2,23 +2,23 @@ import * as consts from "../consts/index";
 
 const initialState = {
   currentColor: "#FF00",
-  currentRgb: "rgb(255,0,0)",
+  currentRgb: "255,0,0",
   colorsArray: [{
     id: 1,
     name: "RED",
-    color: "rgb(255,0,0)"
+    color: "255,0,0"
   },{
     id: 2,
     name: "YELLOW",
-    color: "rgb(255,255,0)"
+    color: "255,255,0"
   }, {
     id: 3,
     name: "GREEN",
-    color: "rgb(0,255,0)"
+    color: "0,255,0"
   }, {
     id: 4,
     name: "BLUE",
-    color: "rgb(0,0,255)"
+    color: "0,0,255"
   }]
 };
 

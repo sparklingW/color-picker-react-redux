@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 const Block = styled.div`
-  background: ${props => props.background};
+  background: ${props => props.background ? `rgb(${props.background})` : "grey"};
   width: 30px;
   height: 30px;
   cursor: pointer;
