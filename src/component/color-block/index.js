@@ -10,6 +10,26 @@ class ColorBlock extends React.Component {
     chosenColor: "255,0,0",
   };
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
+  };
+
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.setState({
+        isOpenDropDown: false,
+      });
+    }
+  };
+
   handleOpen = () => {
     this.setState({
       isOpenDropDown: !this.state.isOpenDropDown
@@ -19,7 +39,8 @@ class ColorBlock extends React.Component {
   choseColor = (color) => {
     const { setRgb, setColor } = this.props;
     this.setState({
-      chosenColor: color
+      chosenColor: color,
+      isOpenDropDown: false,
     }, () => {
       setRgb(color);
       const splited = color.split(",");
@@ -40,13 +61,15 @@ class ColorBlock extends React.Component {
           height="42"
           onClick={this.handleOpen}
         />
-        {isOpenDropDown &&
+        <div ref={this.setWrapperRef}>
+          {isOpenDropDown &&
           <DropDown
             colorsArray={colorsArray}
             choseColor={this.choseColor}
             chosenColor={chosenColor}
           />
-        }
+          }
+        </div>
       </Container>
     )
   }
