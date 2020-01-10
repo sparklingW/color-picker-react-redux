@@ -42,7 +42,7 @@ class RgbBlock extends React.Component {
         <Block background={background} onClick={this.handleOpenMenu} />
         <div ref={this.setWrapperRef}>
           {
-            isOpenedMenu && <DropDown />
+            isOpenedMenu && <DropDown handleOpenMenu={this.handleOpenMenu} />
           }
         </div>
       </Container>

@@ -1,5 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import styled from "styled-components";
+import * as actions from "../../store/actions";
 
 class DropDown extends React.Component {
 
@@ -8,19 +10,29 @@ class DropDown extends React.Component {
   */
 
   state = {
-    red: 255,
-    green: 0,
-    blue: 0,
+    r: this.props.r,
+    g: this.props.g,
+    b: this.props.b,
   };
 
+  componentDidMount() {
+    console.log(this.props);
+  }
+
   handleRange = ({target: {value, name}}) => {
+    const { setR_G_B } = this.props;
+    const { r, g, b } = this.state;
     this.setState({
       [name] : value,
+    }, () => {
+      console.log(name, value);
+      setR_G_B({r: value, g, b})
     });
   };
 
   render() {
-    const { red, green, blue } = this.state;
+    const { r, g, b } = this.state;
+    const { handleOpenMenu } = this.props;
     return (
       <Container>
         <Elements>
@@ -29,7 +41,7 @@ class DropDown extends React.Component {
             <RangeRed
               type="range"
               name="red"
-              value={red}
+              defaultValue={r}
               onChange={this.handleRange}
             />
           </RangeBlock>
@@ -38,7 +50,7 @@ class DropDown extends React.Component {
             <RangeGreen
               type="range"
               name="green"
-              value={green}
+              defaultValue={g}
               onChange={this.handleRange}
             />
           </RangeBlock>
@@ -47,12 +59,12 @@ class DropDown extends React.Component {
             <RangeBlue
               type="range"
               name="blue"
-              value={blue}
+              defaultValue={b}
               onChange={this.handleRange}
             />
           </RangeBlock>
           <Buttons>
-            <Cancel>
+            <Cancel onClick={handleOpenMenu}>
               CANCEL
             </Cancel>
             <OK>
@@ -65,7 +77,17 @@ class DropDown extends React.Component {
   }
 }
 
-export default DropDown;
+const mapStateToProps = (state) => ({
+  r: state.r,
+  g: state.g,
+  b: state.b,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setR_G_B:(payload) => dispatch(actions.setR_G_B(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropDown);
 
 const Container = styled.div`
   position: absolute;
