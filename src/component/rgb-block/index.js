@@ -5,7 +5,7 @@ import styled from "styled-components";
 class RgbBlock extends React.Component {
 
   state = {
-    isOpenedMenu: true,
+    isOpenedMenu: false,
   };
 
   componentDidMount() {
