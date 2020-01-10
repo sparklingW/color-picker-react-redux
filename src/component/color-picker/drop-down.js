@@ -6,10 +6,6 @@ import * as conv from "../../convertsFunctions";
 
 class DropDown extends React.Component {
 
-  /*
-    red, green, blue = value * 2.551
-  */
-
   state = {
     r: this.props.r,
     g: this.props.g,
@@ -18,7 +14,7 @@ class DropDown extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
+    localStorage.setItem('rgb', `${this.state.r},${this.state.g},${this.state.b}`);
   }
 
   componentWillUnmount() {
@@ -32,18 +28,20 @@ class DropDown extends React.Component {
     const result = conv.rgbToHex(Number(r), Number(g), Number(b));
     setR_G_B({r, g, b});
     setColor(result);
-    setRgb(`${r * 2.55},${g * 2.55},${b * 2.55}`);
+    setRgb(`${Math.floor(r * 2.55)},${Math.floor(g * 2.55)},${Math.floor(b * 2.55)}`);
   };
 
   handleSave = () => {
-    const { r, g, b, } = this.state;
+    const { r, g, b } = this.state;
+    const { handleOpenMenu, saveColor } = this.props;
     this.setState({
       save: true,
     },() => this.props.setR_G_B({r, g, b}));
+    handleOpenMenu();
+    saveColor(`${Math.floor(r * 2.55)},${Math.floor(g * 2.55)},${Math.floor(b * 2.55)}`);
   };
 
   handleColorR = ({target: {value}}) => {
-    // const { setR_G_B } = this.props;
     const { r, g, b } = this.state;
     this.setState({
       r: Number(value),
@@ -51,7 +49,6 @@ class DropDown extends React.Component {
   };
 
   handleColorG = ({target: {value}}) => {
-    // const { setR_G_B } = this.props;
     const { r, g, b } = this.state;
     this.setState({
       g: Number(value),
@@ -59,7 +56,6 @@ class DropDown extends React.Component {
   };
 
   handleColorB = ({target: {value}}) => {
-    // const { setR_G_B } = this.props;
     const { r, g, b } = this.state;
     this.setState({
       b: Number(value),
@@ -67,10 +63,11 @@ class DropDown extends React.Component {
   };
 
   handleCancel = () => {
-    console.log("Cancel");
-    const { handleOpenMenu, setR_G_B, currentRgb } = this.props;
-    const splited = currentRgb.split(',');
-    setR_G_B({r: splited[0], g: splited[1], b: splited[2]});
+    const { handleOpenMenu, setRgb, setR_G_B } = this.props;
+    const rgb = localStorage.getItem('rgb');
+    const splited = rgb.split(",");
+    setRgb(`${splited[0]},${splited[1]},${splited[2]}`);
+    setR_G_B({r: Number(splited[0]),g: Number(splited[1]),b: Number(splited[2])});
     handleOpenMenu();
   };
 
@@ -131,6 +128,7 @@ const mapDispatchToProps = (dispatch) => ({
   setR_G_B:(payload) => dispatch(actions.setR_G_B(payload)),
   setColor: (payload) => dispatch(actions.setColor(payload)),
   setRgb: (payload) => dispatch(actions.setRgb(payload)),
+  saveColor: (payload) => dispatch(actions.saveColor(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropDown);

@@ -14,3 +14,8 @@ export const setR_G_B = (payload) => ({
   type: consts.SET_R_G_B,
   payload,
 });
+
+export const saveColor = (payload) => ({
+  type: consts.SAVE_COLOR,
+  payload,
+});

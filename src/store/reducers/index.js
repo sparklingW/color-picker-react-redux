@@ -20,9 +20,10 @@ const initialState = {
     name: "BLUE",
     color: "0,0,255"
   }],
-  r: '255',
-  g: '0',
-  b: '0',
+  r: 255,
+  g: 0,
+  b: 0,
+  pickedColor: '255,0,0',
 };
 
 const mainReducer = (state = initialState, action) => {
@@ -43,6 +44,27 @@ const mainReducer = (state = initialState, action) => {
         r: action.payload.r,
         g: action.payload.g,
         b: action.payload.b,
+      };
+    case consts.SAVE_COLOR:
+      return {
+        ...state,
+        colorsArray: [{
+          id: 1,
+          name: "RED",
+          color: "255,0,0"
+        },{
+          id: 2,
+          name: "COSTUME",
+          color: action.payload
+        }, {
+          id: 3,
+          name: "GREEN",
+          color: "0,255,0"
+        }, {
+          id: 4,
+          name: "BLUE",
+          color: "0,0,255"
+        }],
       };
     default:
       return {
