@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import * as actions from "../../store/actions";
+import * as conv from "../../convertsFunctions";
 
 class DropDown extends React.Component {
 
@@ -13,26 +14,68 @@ class DropDown extends React.Component {
     r: this.props.r,
     g: this.props.g,
     b: this.props.b,
+    save: false,
   };
 
   componentDidMount() {
     console.log(this.props);
   }
 
-  handleRange = ({target: {value, name}}) => {
-    const { setR_G_B } = this.props;
+  componentWillUnmount() {
+    this.setState({
+      save: false,
+    })
+  }
+
+  setColor = (r, g, b) => {
+    const { setR_G_B, setColor, setRgb } = this.props;
+    const result = conv.rgbToHex(Number(r), Number(g), Number(b));
+    setR_G_B({r, g, b});
+    setColor(result);
+    setRgb(`${r * 2.55},${g * 2.55},${b * 2.55}`);
+  };
+
+  handleSave = () => {
+    const { r, g, b, } = this.state;
+    this.setState({
+      save: true,
+    },() => this.props.setR_G_B({r, g, b}));
+  };
+
+  handleColorR = ({target: {value}}) => {
+    // const { setR_G_B } = this.props;
     const { r, g, b } = this.state;
     this.setState({
-      [name] : value,
-    }, () => {
-      console.log(name, value);
-      setR_G_B({r: value, g, b})
-    });
+      r: Number(value),
+    }, () => this.setColor(r, g, b));
+  };
+
+  handleColorG = ({target: {value}}) => {
+    // const { setR_G_B } = this.props;
+    const { r, g, b } = this.state;
+    this.setState({
+      g: Number(value),
+    }, () => this.setColor(r, g, b));
+  };
+
+  handleColorB = ({target: {value}}) => {
+    // const { setR_G_B } = this.props;
+    const { r, g, b } = this.state;
+    this.setState({
+      b: Number(value),
+    }, () => this.setColor(r, g, b));
+  };
+
+  handleCancel = () => {
+    console.log("Cancel");
+    const { handleOpenMenu, setR_G_B, currentRgb } = this.props;
+    const splited = currentRgb.split(',');
+    setR_G_B({r: splited[0], g: splited[1], b: splited[2]});
+    handleOpenMenu();
   };
 
   render() {
     const { r, g, b } = this.state;
-    const { handleOpenMenu } = this.props;
     return (
       <Container>
         <Elements>
@@ -42,7 +85,7 @@ class DropDown extends React.Component {
               type="range"
               name="red"
               defaultValue={r}
-              onChange={this.handleRange}
+              onChange={this.handleColorR}
             />
           </RangeBlock>
           <RangeBlock>
@@ -51,7 +94,7 @@ class DropDown extends React.Component {
               type="range"
               name="green"
               defaultValue={g}
-              onChange={this.handleRange}
+              onChange={this.handleColorG}
             />
           </RangeBlock>
           <RangeBlock>
@@ -60,14 +103,14 @@ class DropDown extends React.Component {
               type="range"
               name="blue"
               defaultValue={b}
-              onChange={this.handleRange}
+              onChange={this.handleColorB}
             />
           </RangeBlock>
           <Buttons>
-            <Cancel onClick={handleOpenMenu}>
+            <Cancel onClick={this.handleCancel}>
               CANCEL
             </Cancel>
-            <OK>
+            <OK onClick={this.handleSave}>
               OK
             </OK>
           </Buttons>
@@ -81,10 +124,13 @@ const mapStateToProps = (state) => ({
   r: state.r,
   g: state.g,
   b: state.b,
+  currentRgb: state.currentRgb,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setR_G_B:(payload) => dispatch(actions.setR_G_B(payload)),
+  setColor: (payload) => dispatch(actions.setColor(payload)),
+  setRgb: (payload) => dispatch(actions.setRgb(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropDown);
